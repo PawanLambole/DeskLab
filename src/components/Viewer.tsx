@@ -6,7 +6,7 @@ interface ViewerProps {
   onBack: () => void;
 }
 
-const SOCKET_URL = 'http://localhost:3001';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
 
 const ICE_SERVERS = {
   iceServers: [
@@ -19,10 +19,13 @@ export default function Viewer({ onBack }: ViewerProps) {
   const [roomId, setRoomId] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [status, setStatus] = useState('Enter a room ID to connect');
+  const [remoteControlActive, setRemoteControlActive] = useState(false);
 
   const socketRef = useRef<Socket | null>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
+  const dataChannelRef = useRef<RTCDataChannel | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     return () => {
@@ -115,6 +118,19 @@ export default function Viewer({ onBack }: ViewerProps) {
       }
     };
 
+    // Handle data channel for remote control
+    peerConnection.ondatachannel = (event) => {
+      dataChannelRef.current = event.channel;
+      event.channel.onopen = () => {
+        console.log('Data channel opened');
+        setRemoteControlActive(true);
+      };
+      event.channel.onclose = () => {
+        console.log('Data channel closed');
+        setRemoteControlActive(false);
+      };
+    };
+
     peerConnectionRef.current = peerConnection;
 
     if (isInitiator) {
@@ -125,6 +141,66 @@ export default function Viewer({ onBack }: ViewerProps) {
         signal: offer
       });
     }
+  };
+
+  const sendRemoteControlMessage = (message: any) => {
+    if (dataChannelRef.current && dataChannelRef.current.readyState === 'open') {
+      dataChannelRef.current.send(JSON.stringify(message));
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLVideoElement>) => {
+    if (!videoRef.current) return;
+    
+    const rect = videoRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+
+    sendRemoteControlMessage({
+      type: 'mousemove',
+      x: x,
+      y: y,
+    });
+  };
+
+  const handleMouseClick = (e: React.MouseEvent<HTMLVideoElement>) => {
+    e.preventDefault();
+    
+    let button: 'left' | 'right' | 'middle' = 'left';
+    if (e.button === 2) button = 'right';
+    else if (e.button === 1) button = 'middle';
+
+    sendRemoteControlMessage({
+      type: 'mouseclick',
+      button: button,
+      double: e.detail === 2,
+    });
+  };
+
+  const handleWheel = (e: React.WheelEvent<HTMLVideoElement>) => {
+    e.preventDefault();
+    
+    sendRemoteControlMessage({
+      type: 'mousescroll',
+      deltaX: Math.round(e.deltaX / 100),
+      deltaY: Math.round(e.deltaY / 100),
+    });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLVideoElement>) => {
+    e.preventDefault();
+    
+    const modifiers: string[] = [];
+    if (e.ctrlKey) modifiers.push('control');
+    if (e.shiftKey) modifiers.push('shift');
+    if (e.altKey) modifiers.push('alt');
+    if (e.metaKey) modifiers.push('command');
+
+    sendRemoteControlMessage({
+      type: 'keypress',
+      key: e.key.toLowerCase(),
+      modifiers: modifiers.length > 0 ? modifiers : undefined,
+    });
   };
 
   const disconnect = () => {
@@ -208,13 +284,27 @@ export default function Viewer({ onBack }: ViewerProps) {
                 <p className="text-sm text-gray-700">
                   <strong>Room ID:</strong> {roomId.trim()}
                 </p>
+                {remoteControlActive && (
+                  <p className="text-xs text-green-600 mt-2">
+                    🎮 Remote control enabled - Click and interact with the screen!
+                  </p>
+                )}
               </div>
 
-              <div className="bg-gray-900 rounded-lg overflow-hidden aspect-video">
+              <div 
+                ref={containerRef}
+                className="bg-gray-900 rounded-lg overflow-hidden aspect-video cursor-pointer"
+                tabIndex={0}
+              >
                 <video
                   ref={videoRef}
                   autoPlay
                   className="w-full h-full object-contain"
+                  onMouseMove={handleMouseMove}
+                  onClick={handleMouseClick}
+                  onContextMenu={(e) => { e.preventDefault(); handleMouseClick(e); }}
+                  onWheel={handleWheel}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
 

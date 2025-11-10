@@ -1,32 +1,50 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "desklab",
+  "productName": "DeskLab",
+  "description": "Remote Desktop Sharing Application",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "DeskLab Team",
+  "main": "dist-electron/main.cjs",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "dev:electron": "concurrently \"npm run dev\" \"npm run server\" \"cross-env NODE_ENV=development npm run electron:dev\"",
+    "electron:dev": "npx tsc -p electron.tsconfig.json && node scripts/rename-electron-files.cjs && electron .",
+    "build": "vite build && npx tsc -p electron.tsconfig.json && node scripts/rename-electron-files.cjs",
+    "build:win": "npm run build && electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:linux": "npm run build && electron-builder --linux",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "server": "node server/server.js"
+    "server": "node server/server.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
     "cors": "^2.8.5",
+    "electron-updater": "^6.6.2",
     "express": "^5.1.0",
     "lucide-react": "^0.344.0",
+    "nutjs": "^0.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "robotjs": "^0.6.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@types/node": "^24.10.0",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.1.1",
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
@@ -35,6 +53,61 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
-    "vite": "^5.4.2"
+    "vite": "^7.2.2",
+    "vite-plugin-electron": "^0.29.0",
+    "vite-plugin-electron-renderer": "^0.14.6"
+  },
+  "build": {
+    "appId": "com.desklab.app",
+    "productName": "DeskLab",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "server/**/*",
+      "package.json"
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "PawanLambole",
+        "repo": "DeskLab",
+        "releaseType": "release"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.ico",
+      "publish": [
+        "github"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png",
+      "category": "Network"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "allowElevation": true,
+      "perMachine": false
+    }
   }
 }

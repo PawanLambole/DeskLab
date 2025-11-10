@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DeskLab - Professional remote desktop sharing application with screen control. Free, secure, and easy to use.">
+    <meta name="keywords" content="remote desktop, screen sharing, remote control, teamviewer alternative, anydesk alternative">
+    <meta name="author" content="DeskLab Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://desklab.vercel.app/">
+    <meta property="og:title" content="DeskLab - Remote Desktop Made Simple">
+    <meta property="og:description" content="Professional screen sharing and remote control application. Free, secure, and automatic updates.">
+    <meta property="og:image" content="https://desklab.vercel.app/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://desklab.vercel.app/">
+    <meta property="twitter:title" content="DeskLab - Remote Desktop Made Simple">
+    <meta property="twitter:description" content="Professional screen sharing and remote control application. Free, secure, and automatic updates.">
+    <meta property="twitter:image" content="https://desklab.vercel.app/og-image.png">
+
+    <title>DeskLab - Remote Desktop Made Simple</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i data-lucide="monitor" class="logo-icon"></i>
+                    <span class="logo-text">DeskLab</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#download">Download</a>
+                    <a href="#docs">Documentation</a>
+                    <a href="https://github.com/PawanLambole/DeskLab" target="_blank">GitHub</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#docs">Documentation</a>
+        <a href="https://github.com/PawanLambole/DeskLab" target="_blank">GitHub</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i data-lucide="zap" class="badge-icon"></i>
+                    <span>Free & Open Source</span>
+                </div>
+                <h1 class="hero-title">
+                    Remote Desktop<br>
+                    <span class="gradient-text">Made Simple</span>
+                </h1>
+                <p class="hero-description">
+                    Professional screen sharing and remote control application. 
+                    Connect to any Windows PC instantly. Free, secure, and with automatic updates.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        <i data-lucide="download"></i>
+                        Download for Windows
+                        <span class="btn-badge">v1.0.0</span>
+                    </a>
+                    <a href="https://github.com/PawanLambole/DeskLab" class="btn btn-secondary" target="_blank">
+                        <i data-lucide="github"></i>
+                        View on GitHub
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i data-lucide="download"></i>
+                        <span>Free Download</span>
+                    </div>
+                    <div class="stat">
+                        <i data-lucide="shield-check"></i>
+                        <span>Secure & Private</span>
+                    </div>
+                    <div class="stat">
+                        <i data-lucide="refresh-cw"></i>
+                        <span>Auto Updates</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="app-preview">
+                    <div class="preview-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="window-title">DeskLab - Remote Desktop</span>
+                        </div>
+                        <div class="window-content">
+                            <div class="connection-demo">
+                                <div class="demo-item">
+                                    <i data-lucide="monitor"></i>
+                                    <span>Share Screen</span>
+                                </div>
+                                <div class="demo-arrow">→</div>
+                                <div class="demo-item">
+                                    <i data-lucide="mouse-pointer"></i>
+                                    <span>Remote Control</span>
+                                </div>
+                                <div class="demo-arrow">→</div>
+                                <div class="demo-item">
+                                    <i data-lucide="check-circle"></i>
+                                    <span>Connected</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Powerful Features</h2>
+                <p class="section-description">Everything you need for remote desktop access</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="monitor"></i>
+                    </div>
+                    <h3>Screen Sharing</h3>
+                    <p>Share your entire screen or specific windows. Multi-monitor support included.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="mouse-pointer-click"></i>
+                    </div>
+                    <h3>Remote Control</h3>
+                    <p>Full mouse and keyboard control. Click, type, and scroll as if you were there.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="refresh-cw"></i>
+                    </div>
+                    <h3>Auto Updates</h3>
+                    <p>Automatic updates via GitHub Releases. Always stay current with one click.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3>Secure P2P</h3>
+                    <p>Direct peer-to-peer connections using WebRTC. Your data stays private.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="hash"></i>
+                    </div>
+                    <h3>Simple Codes</h3>
+                    <p>Connect using easy 6-digit room codes. No complex setup required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Built with Electron and React. Optimized for performance and reliability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-description">Get connected in 3 simple steps</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Download & Install</h3>
+                        <p>Download DeskLab for Windows. One-time installation, automatic updates forever.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Share Your Code</h3>
+                        <p>Click "Host" to share your screen. Get a 6-digit code and share it with your viewer.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Connect & Control</h3>
+                        <p>Viewer enters the code and connects. Full remote control with mouse and keyboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <h2 class="section-title">Ready to Get Started?</h2>
+                <p class="section-description">Download DeskLab and start sharing your screen instantly</p>
+                
+                <div class="download-card">
+                    <div class="download-info">
+                        <div class="download-header">
+                            <i data-lucide="monitor" class="download-logo"></i>
+                            <div>
+                                <h3>DeskLab for Windows</h3>
+                                <p>Version 1.0.0 • Windows 10/11 (64-bit)</p>
+                            </div>
+                        </div>
+                        <ul class="download-features">
+                            <li><i data-lucide="check"></i> Screen sharing & remote control</li>
+                            <li><i data-lucide="check"></i> Automatic updates</li>
+                            <li><i data-lucide="check"></i> Multi-monitor support</li>
+                            <li><i data-lucide="check"></i> Secure P2P connections</li>
+                        </ul>
+                    </div>
+                    <div class="download-actions">
+                        <a href="https://github.com/PawanLambole/DeskLab/releases/latest/download/DeskLab-Setup-1.0.0.exe" class="btn btn-primary btn-large" id="downloadBtn">
+                            <i data-lucide="download"></i>
+                            Download Installer
+                            <span class="file-size">~136 MB</span>
+                        </a>
+                        <a href="https://github.com/PawanLambole/DeskLab/releases" class="btn btn-link" target="_blank">
+                            <i data-lucide="github"></i>
+                            View All Releases
+                        </a>
+                    </div>
+                </div>
+
+                <div class="system-requirements">
+                    <h4>System Requirements</h4>
+                    <div class="requirements-grid">
+                        <div class="requirement">
+                            <strong>OS:</strong> Windows 10/11 (64-bit)
+                        </div>
+                        <div class="requirement">
+                            <strong>RAM:</strong> 4 GB minimum
+                        </div>
+                        <div class="requirement">
+                            <strong>Storage:</strong> 200 MB available
+                        </div>
+                        <div class="requirement">
+                            <strong>Network:</strong> WiFi or Ethernet
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation -->
+    <section id="docs" class="docs">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Documentation</h2>
+                <p class="section-description">Everything you need to know</p>
+            </div>
+            <div class="docs-grid">
+                <a href="https://github.com/PawanLambole/DeskLab/blob/main/AUTO-UPDATE-QUICK-START.md" class="doc-card" target="_blank">
+                    <i data-lucide="rocket"></i>
+                    <h3>Quick Start Guide</h3>
+                    <p>Get started in 15 minutes with our step-by-step guide</p>
+                </a>
+                <a href="https://github.com/PawanLambole/DeskLab/blob/main/AUTO-UPDATE-GUIDE.md" class="doc-card" target="_blank">
+                    <i data-lucide="book-open"></i>
+                    <h3>Complete Guide</h3>
+                    <p>Full documentation for developers and advanced users</p>
+                </a>
+                <a href="https://github.com/PawanLambole/DeskLab/blob/main/PROJECT-STATUS.md" class="doc-card" target="_blank">
+                    <i data-lucide="list-checks"></i>
+                    <h3>Project Status</h3>
+                    <p>Current features, roadmap, and development progress</p>
+                </a>
+                <a href="https://github.com/PawanLambole/DeskLab/issues" class="doc-card" target="_blank">
+                    <i data-lucide="message-circle"></i>
+                    <h3>Get Support</h3>
+                    <p>Report issues, request features, or ask questions</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Is DeskLab really free?</h3>
+                    <p>Yes! DeskLab is completely free and open source. No subscriptions, no hidden fees.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How secure is DeskLab?</h3>
+                    <p>Very secure. We use direct peer-to-peer connections with WebRTC encryption. Your data never goes through our servers.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do I need to install on both PCs?</h3>
+                    <p>Yes, both the host (person sharing screen) and viewer need to install DeskLab.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use it over the internet?</h3>
+                    <p>Currently optimized for same-network use. Internet support with ngrok or port forwarding is documented.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do updates work?</h3>
+                    <p>DeskLab automatically checks for updates on startup. When available, you get a notification with one-click install.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What platforms are supported?</h3>
+                    <p>Currently Windows 10/11 (64-bit). macOS and Linux support is planned for future releases.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Sharing Your Screen Today</h2>
+                <p>Join users who trust DeskLab for remote desktop access</p>
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary btn-large">
+                        <i data-lucide="download"></i>
+                        Download Now
+                    </a>
+                    <a href="https://github.com/PawanLambole/DeskLab" class="btn btn-secondary btn-large" target="_blank">
+                        <i data-lucide="github"></i>
+                        Star on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i data-lucide="monitor"></i>
+                        <span>DeskLab</span>
+                    </div>
+                    <p>Professional remote desktop sharing made simple.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/PawanLambole/DeskLab" target="_blank" aria-label="GitHub">
+                            <i data-lucide="github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#download">Download</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/releases" target="_blank">Releases</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/blob/main/PROJECT-STATUS.md" target="_blank">Roadmap</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Documentation</h4>
+                    <a href="https://github.com/PawanLambole/DeskLab/blob/main/AUTO-UPDATE-QUICK-START.md" target="_blank">Quick Start</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/blob/main/AUTO-UPDATE-GUIDE.md" target="_blank">User Guide</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/blob/main/DOCUMENTATION-INDEX.md" target="_blank">All Docs</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/blob/main/README.md" target="_blank">README</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Community</h4>
+                    <a href="https://github.com/PawanLambole/DeskLab" target="_blank">GitHub</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/PawanLambole/DeskLab/discussions" target="_blank">Discussions</a>
+                    <a href="https://github.com/PawanLambole" target="_blank">Author</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DeskLab. Open source under MIT License.</p>
+                <p>Built with ❤️ using Electron, React, and TypeScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

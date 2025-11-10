@@ -1,0 +1,94 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║               ⚠️  IMPORTANT - ZIP FILE UPDATE                         ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+🔴 OLD ZIP (Don't Use):
+   File: DeskLab-Portable.zip
+   Problem: localhost:3001 → Only works on SAME computer
+   Status: ❌ Won't work for testing on different PCs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ NEW ZIP (Use This):
+   File: DeskLab-Portable-UPDATED.zip
+   Fixed: 192.168.29.56:3001 → Works on different PCs (same network)
+   Status: ✅ Ready for testing
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 WHAT CHANGED:
+
+  Before: VITE_SOCKET_URL=http://localhost:3001
+  After:  VITE_SOCKET_URL=http://192.168.29.56:3001
+
+  This allows other PCs on your WiFi to connect to your signaling server.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 TO TEST NOW:
+
+  1. On YOUR PC (Host):
+     cd D:\DeskLab\DeskLab
+     npm run server
+     # Keep this running!
+
+  2. Upload DeskLab-Portable-UPDATED.zip to cloud
+
+  3. On BOTH PCs:
+     - Extract DeskLab-Portable-UPDATED.zip
+     - Run DeskLab.exe
+     - Host: Start Sharing → Get room code
+     - Viewer: Enter room code → Connect
+
+  4. Test remote control:
+     - Move mouse on viewer PC
+     - Should control host PC
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  REQUIREMENTS:
+
+  ✅ Both PCs on SAME WiFi (192.168.29.x network)
+  ✅ Your PC IP is 192.168.29.56 (verify with ipconfig)
+  ✅ Server running: npm run server
+  ✅ Firewall allows port 3001
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 FILES IN PROJECT:
+
+  Location: D:\DeskLab\DeskLab\
+  
+  ❌ DeskLab-Portable.zip              (Old - localhost only)
+  ✅ DeskLab-Portable-UPDATED.zip      (New - network ready)
+  📖 TESTING-GUIDE-UPDATED.md          (Full instructions)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 ANSWER TO YOUR QUESTION:
+
+  "Is the zip file we created complete or need to update?"
+
+  ❌ OLD ZIP: Incomplete - won't work on different PCs
+  ✅ NEW ZIP: Complete - ready for testing on different PCs
+  
+  BUT: Still limited to SAME WiFi network
+       For internet testing → need ngrok (see TESTING-OPTIONS.md)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 WHAT YOU CAN TEST NOW:
+
+  ✅ Screen sharing between 2 PCs (same WiFi)
+  ✅ Remote control (mouse/keyboard) 
+  ✅ Room-based connections
+  ❌ Different networks (need ngrok)
+  ❌ System audio (not implemented)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ READY TO SHARE: DeskLab-Portable-UPDATED.zip (136 MB)
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║  Upload UPDATED ZIP → Test on 2 PCs → Report if remote control works ║
+╚═══════════════════════════════════════════════════════════════════════╝

@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { ArrowLeft, Monitor, Users, PhoneOff } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
+import ScreenSourcePicker from './ScreenSourcePicker';
 
 interface HostProps {
   onBack: () => void;
 }
 
-const SOCKET_URL = 'http://localhost:3001';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
 
 const ICE_SERVERS = {
   iceServers: [
@@ -20,13 +21,32 @@ export default function Host({ onBack }: HostProps) {
   const [isSharing, setIsSharing] = useState(false);
   const [viewersCount, setViewersCount] = useState(0);
   const [status, setStatus] = useState('Enter a room ID to start sharing');
+  const [showSourcePicker, setShowSourcePicker] = useState(false);
+  const [isElectron, setIsElectron] = useState(false);
+  const [remoteControlEnabled, setRemoteControlEnabled] = useState(false);
 
   const socketRef = useRef<Socket | null>(null);
   const localStreamRef = useRef<MediaStream | null>(null);
   const peerConnectionsRef = useRef<Map<string, RTCPeerConnection>>(new Map());
+  const dataChannelsRef = useRef<Map<string, RTCDataChannel>>(new Map());
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    // Check if running in Electron
+    const checkElectron = async () => {
+      if (window.electronAPI) {
+        const result = await window.electronAPI.isElectron();
+        setIsElectron(result);
+        
+        // Enable remote control in Electron by default
+        if (result) {
+          await window.electronAPI.setRemoteControl(true);
+          setRemoteControlEnabled(true);
+        }
+      }
+    };
+    checkElectron();
+
     return () => {
       stopSharing();
     };
@@ -38,75 +58,113 @@ export default function Host({ onBack }: HostProps) {
       return;
     }
 
+    // If running in Electron, show source picker
+    if (isElectron && window.electronAPI) {
+      setShowSourcePicker(true);
+    } else {
+      // Fallback to browser API
+      await startSharingWithBrowserAPI();
+    }
+  };
+
+  const handleSourceSelected = async (sourceId: string) => {
+    setShowSourcePicker(false);
+    await startSharingWithElectronAPI(sourceId);
+  };
+
+  const startSharingWithElectronAPI = async (sourceId: string) => {
+    try {
+      setStatus('🎬 Starting screen capture...');
+
+      // Use Electron's desktopCapturer through getUserMedia with mandatory sourceId
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          mandatory: {
+            chromeMediaSource: 'desktop',
+            chromeMediaSourceId: sourceId,
+          },
+        } as any,
+      });
+
+      await initializeStream(stream);
+    } catch (error) {
+      console.error('Error starting screen share with Electron:', error);
+      setStatus('❌ Failed to access screen. Please try again.');
+    }
+  };
+
+  const startSharingWithBrowserAPI = async () => {
     try {
       setStatus('🎬 Requesting screen access...');
 
       const stream = await navigator.mediaDevices.getDisplayMedia({
-        video: {
-          cursor: 'always'
-        },
-        audio: false
+        video: true,
+        audio: false,
       });
 
-      localStreamRef.current = stream;
-
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-
-      stream.getVideoTracks()[0].onended = () => {
-        stopSharing();
-      };
-
-      socketRef.current = io(SOCKET_URL);
-
-      socketRef.current.on('connect', () => {
-        setStatus('🔗 Connected to server');
-        socketRef.current?.emit('join-room', { roomId: roomId.trim(), role: 'host' });
-        setIsSharing(true);
-        setStatus(`✅ Sharing screen in room: ${roomId.trim()}`);
-      });
-
-      socketRef.current.on('viewer-joined', async ({ viewerId }) => {
-        setStatus('👀 New viewer connecting...');
-        await createPeerConnection(viewerId, true);
-        setViewersCount(prev => prev + 1);
-        setStatus(`✅ Viewer connected (${viewersCount + 1} watching)`);
-      });
-
-      socketRef.current.on('signal', async ({ signal, from }) => {
-        const peerConnection = peerConnectionsRef.current.get(from);
-
-        if (!peerConnection) {
-          await createPeerConnection(from, false);
-        }
-
-        const pc = peerConnectionsRef.current.get(from);
-
-        if (signal.type === 'offer') {
-          await pc?.setRemoteDescription(new RTCSessionDescription(signal));
-          const answer = await pc?.createAnswer();
-          await pc?.setLocalDescription(answer);
-          socketRef.current?.emit('signal', {
-            roomId: roomId.trim(),
-            signal: answer,
-            to: from
-          });
-        } else if (signal.type === 'answer') {
-          await pc?.setRemoteDescription(new RTCSessionDescription(signal));
-        } else if (signal.candidate) {
-          await pc?.addIceCandidate(new RTCIceCandidate(signal));
-        }
-      });
-
-      socketRef.current.on('viewer-disconnected', () => {
-        setViewersCount(prev => Math.max(0, prev - 1));
-      });
-
+      await initializeStream(stream);
     } catch (error) {
       console.error('Error starting screen share:', error);
       setStatus('❌ Failed to access screen. Please try again.');
     }
+  };
+
+  const initializeStream = async (stream: MediaStream) => {
+    localStreamRef.current = stream;
+
+    if (videoRef.current) {
+      videoRef.current.srcObject = stream;
+    }
+
+    stream.getVideoTracks()[0].onended = () => {
+      stopSharing();
+    };
+
+    socketRef.current = io(SOCKET_URL);
+
+    socketRef.current.on('connect', () => {
+      setStatus('🔗 Connected to server');
+      socketRef.current?.emit('join-room', { roomId: roomId.trim(), role: 'host' });
+      setIsSharing(true);
+      setStatus(`✅ Sharing screen in room: ${roomId.trim()}`);
+    });
+
+    socketRef.current.on('viewer-joined', async ({ viewerId }) => {
+      setStatus('👀 New viewer connecting...');
+      await createPeerConnection(viewerId, true);
+      setViewersCount(prev => prev + 1);
+      setStatus(`✅ Viewer connected (${viewersCount + 1} watching)`);
+    });
+
+    socketRef.current.on('signal', async ({ signal, from }) => {
+      const peerConnection = peerConnectionsRef.current.get(from);
+
+      if (!peerConnection) {
+        await createPeerConnection(from, false);
+      }
+
+      const pc = peerConnectionsRef.current.get(from);
+
+      if (signal.type === 'offer') {
+        await pc?.setRemoteDescription(new RTCSessionDescription(signal));
+        const answer = await pc?.createAnswer();
+        await pc?.setLocalDescription(answer);
+        socketRef.current?.emit('signal', {
+          roomId: roomId.trim(),
+          signal: answer,
+          to: from
+        });
+      } else if (signal.type === 'answer') {
+        await pc?.setRemoteDescription(new RTCSessionDescription(signal));
+      } else if (signal.candidate) {
+        await pc?.addIceCandidate(new RTCIceCandidate(signal));
+      }
+    });
+
+    socketRef.current.on('viewer-disconnected', () => {
+      setViewersCount(prev => Math.max(0, prev - 1));
+    });
   };
 
   const createPeerConnection = async (peerId: string, isInitiator: boolean) => {
@@ -128,6 +186,16 @@ export default function Host({ onBack }: HostProps) {
       }
     };
 
+    // Create data channel for remote control
+    if (isInitiator) {
+      const dataChannel = peerConnection.createDataChannel('remoteControl');
+      setupDataChannel(dataChannel, peerId);
+    } else {
+      peerConnection.ondatachannel = (event) => {
+        setupDataChannel(event.channel, peerId);
+      };
+    }
+
     peerConnectionsRef.current.set(peerId, peerConnection);
 
     if (isInitiator) {
@@ -141,11 +209,58 @@ export default function Host({ onBack }: HostProps) {
     }
   };
 
-  const stopSharing = () => {
+  const setupDataChannel = (dataChannel: RTCDataChannel, peerId: string) => {
+    dataChannel.onopen = () => {
+      console.log(`Data channel opened with ${peerId}`);
+      dataChannelsRef.current.set(peerId, dataChannel);
+    };
+
+    dataChannel.onmessage = async (event) => {
+      try {
+        const message = JSON.parse(event.data);
+        await handleRemoteControlMessage(message);
+      } catch (error) {
+        console.error('Error handling data channel message:', error);
+      }
+    };
+
+    dataChannel.onclose = () => {
+      console.log(`Data channel closed with ${peerId}`);
+      dataChannelsRef.current.delete(peerId);
+    };
+  };
+
+  const handleRemoteControlMessage = async (message: any) => {
+    if (!window.electronAPI || !isElectron) return;
+
+    switch (message.type) {
+      case 'mousemove':
+        await window.electronAPI.remoteMouseMove(message.x, message.y);
+        break;
+      case 'mouseclick':
+        await window.electronAPI.remoteMouseClick(message.button, message.double);
+        break;
+      case 'mousescroll':
+        await window.electronAPI.remoteMouseScroll(message.deltaX, message.deltaY);
+        break;
+      case 'keypress':
+        await window.electronAPI.remoteKeyPress(message.key, message.modifiers);
+        break;
+      case 'typestring':
+        await window.electronAPI.remoteTypeString(message.text);
+        break;
+    }
+  };
+
+  const stopSharing = async () => {
     if (localStreamRef.current) {
       localStreamRef.current.getTracks().forEach(track => track.stop());
       localStreamRef.current = null;
     }
+
+    // Close data channels
+    dataChannelsRef.current.forEach(dc => dc.close());
+    dataChannelsRef.current.clear();
 
     peerConnectionsRef.current.forEach(pc => pc.close());
     peerConnectionsRef.current.clear();
@@ -155,8 +270,14 @@ export default function Host({ onBack }: HostProps) {
       socketRef.current = null;
     }
 
+    // Disable remote control
+    if (window.electronAPI && isElectron) {
+      await window.electronAPI.setRemoteControl(false);
+    }
+
     setIsSharing(false);
     setViewersCount(0);
+    setRemoteControlEnabled(false);
     setStatus('Enter a room ID to start sharing');
 
     if (videoRef.current) {
@@ -166,6 +287,13 @@ export default function Host({ onBack }: HostProps) {
 
   return (
     <div className="min-h-[calc(100vh-76px)] bg-gradient-to-br from-blue-50 to-gray-50 p-6">
+      {showSourcePicker && (
+        <ScreenSourcePicker
+          onSelect={handleSourceSelected}
+          onCancel={() => setShowSourcePicker(false)}
+        />
+      )}
+
       <div className="max-w-6xl mx-auto">
         <button
           onClick={isSharing ? stopSharing : onBack}
@@ -183,6 +311,9 @@ export default function Host({ onBack }: HostProps) {
             <div>
               <h2 className="text-3xl font-bold text-gray-800">Host Screen Sharing</h2>
               <p className="text-gray-600">Share your screen with others</p>
+              {isElectron && (
+                <p className="text-xs text-blue-600 mt-1">✨ Running in Desktop Mode - Enhanced screen capture available</p>
+              )}
             </div>
           </div>
 
@@ -207,12 +338,13 @@ export default function Host({ onBack }: HostProps) {
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
               >
                 <Monitor className="w-5 h-5" />
-                Start Sharing Screen
+                {isElectron ? 'Select Screen to Share' : 'Start Sharing Screen'}
               </button>
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <p className="text-sm text-blue-800">
                   💡 <strong>Tip:</strong> Choose a unique room ID and share it with viewers who want to watch your screen.
+                  {isElectron && ' You can select specific screens or windows to share!'}
                 </p>
               </div>
             </div>
@@ -232,6 +364,11 @@ export default function Host({ onBack }: HostProps) {
                 <p className="text-sm text-gray-700">
                   <strong>Room ID:</strong> {roomId.trim()}
                 </p>
+                {isElectron && remoteControlEnabled && (
+                  <p className="text-xs text-orange-600 mt-2 font-semibold">
+                    🎮 Remote control is ENABLED - Viewers can control your computer!
+                  </p>
+                )}
               </div>
 
               <div className="bg-gray-900 rounded-lg overflow-hidden aspect-video">

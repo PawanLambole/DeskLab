@@ -9,6 +9,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+dist-electron
+release
 *.local
 
 .vscode/*
@@ -21,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Large files (should go to GitHub Releases)
+*.zip
+*.exe
+*.dmg
+*.AppImage
