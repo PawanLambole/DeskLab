@@ -1,20 +1,16 @@
 {
   "version": 2,
   "name": "desklab",
-  "builds": [
-    {
-      "src": "website/**",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": "echo 'No build needed - static site'",
+  "outputDirectory": "website",
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/website/$1"
+      "src": "/",
+      "dest": "/index.html"
     },
     {
-      "src": "/",
-      "dest": "/website/index.html"
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ],
   "headers": [
