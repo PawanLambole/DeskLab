@@ -29,3 +29,6 @@ release
 *.exe
 *.dmg
 *.AppImage
+
+# Website (removed - focusing on desktop app only)
+website/
