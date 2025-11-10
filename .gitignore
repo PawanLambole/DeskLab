@@ -32,3 +32,6 @@ release
 
 # Website (removed - focusing on desktop app only)
 website/
+
+# Bolt.new configuration (not needed)
+.bolt/
