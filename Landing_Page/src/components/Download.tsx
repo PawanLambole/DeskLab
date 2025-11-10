@@ -1,26 +1,7 @@
 import { Download as DownloadIcon, HardDrive } from 'lucide-react';
 import { config } from '../config';
-import { useState, useEffect } from 'react';
 
 export default function Download() {
-  const [fileSize, setFileSize] = useState(config.fileSize);
-
-  useEffect(() => {
-    // Fetch actual file size from GitHub API
-    fetch('https://api.github.com/repos/PawanLambole/DeskLab/releases/latest')
-      .then(res => res.json())
-      .then(data => {
-        const asset = data.assets?.find((a: any) => a.name.endsWith('.exe'));
-        if (asset) {
-          const sizeMB = Math.round(asset.size / 1024 / 1024);
-          setFileSize(`${sizeMB} MB`);
-        }
-      })
-      .catch(() => {
-        // Keep default if fetch fails
-        setFileSize(config.fileSize);
-      });
-  }, []);
 
   return (
     <section id="download" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-sky-50 via-violet-50 to-white">
@@ -55,7 +36,7 @@ export default function Download() {
                   </span>
                   <span className="flex items-center">
                     <HardDrive size={16} className="mr-1" />
-                    {fileSize}
+                    {config.fileSize}
                   </span>
                 </div>
                 <a
