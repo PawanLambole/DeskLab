@@ -35,3 +35,4 @@ website/
 
 # Bolt.new configuration (not needed)
 .bolt/
+.vercel
