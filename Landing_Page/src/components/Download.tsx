@@ -41,7 +41,6 @@ export default function Download() {
                 </div>
                 <a
                   href={config.downloadUrl}
-                  download="DeskLab-Setup-1.0.0.exe"
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-sky-600 to-violet-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                 >
                   <DownloadIcon className="mr-2" size={20} />

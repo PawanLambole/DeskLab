@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import Changelog from './components/Changelog';
 import Download from './components/Download';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Features />
       <Changelog />
       <Download />
+      <Contact />
       <Footer />
     </div>
   );
