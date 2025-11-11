@@ -21,13 +21,13 @@ export default function Changelog() {
   ];
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-sky-600 to-violet-600 bg-clip-text text-transparent">
             What's New
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Track the latest improvements and features in Desklab
           </p>
         </div>
@@ -36,21 +36,21 @@ export default function Changelog() {
           {updates.map((update, index) => (
             <div
               key={index}
-              className="p-6 bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+              className="p-6 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <span className="inline-block px-3 py-1 bg-gradient-to-r from-sky-600 to-violet-600 text-white text-sm font-semibold rounded-full mb-2">
                     v{update.version}
                   </span>
-                  <p className="text-sm text-gray-500">{update.date}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{update.date}</p>
                 </div>
               </div>
               <ul className="space-y-2">
                 {update.changes.map((change, changeIndex) => (
                   <li key={changeIndex} className="flex items-start">
                     <svg
-                      className="w-5 h-5 text-sky-600 mr-2 mt-0.5 flex-shrink-0"
+                      className="w-5 h-5 text-sky-600 dark:text-sky-400 mr-2 mt-0.5 flex-shrink-0"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -60,7 +60,7 @@ export default function Changelog() {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span className="text-gray-700">{change}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{change}</span>
                   </li>
                 ))}
               </ul>
@@ -73,7 +73,7 @@ export default function Changelog() {
             href={`${config.githubUrl}/releases`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:bg-gray-800 transition-all duration-300"
+            className="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-gray-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition-all duration-300"
           >
             View Full Release Notes
             <ExternalLink className="ml-2" size={18} />

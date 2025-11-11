@@ -26,13 +26,13 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800 transition-colors">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-sky-600 to-violet-600 bg-clip-text text-transparent">
             Powerful Features
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Everything you need to supercharge your productivity in one elegant desktop application.
           </p>
         </div>

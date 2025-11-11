@@ -35,13 +35,13 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-sky-50 to-violet-50">
+    <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-sky-50 to-violet-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-sky-600 to-violet-600 bg-clip-text text-transparent">
             Get in Touch
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Have questions or feedback? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
           </p>
         </div>
@@ -51,15 +51,15 @@ export default function Contact() {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-violet-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
             
-            <div className="relative bg-white rounded-2xl shadow-xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <MessageSquare className="mr-2 text-sky-600" size={28} />
+            <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center">
+                <MessageSquare className="mr-2 text-sky-600 dark:text-sky-400" size={28} />
                 Send us a Message
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Your Name
                   </label>
                   <input
@@ -69,13 +69,13 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
                     placeholder="John Doe"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Email Address
                   </label>
                   <input
@@ -85,13 +85,13 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
                     placeholder="john@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Subject
                   </label>
                   <input
@@ -101,13 +101,13 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none"
                     placeholder="How can we help you?"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Message
                   </label>
                   <textarea
@@ -117,7 +117,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all outline-none resize-none"
                     placeholder="Tell us what you're thinking..."
                   />
                 </div>
@@ -163,17 +163,17 @@ export default function Contact() {
             {/* Email */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-violet-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-              <div className="relative bg-white rounded-xl shadow-lg p-6">
+              <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-gradient-to-br from-sky-100 to-violet-100 rounded-lg flex items-center justify-center">
-                      <Mail className="text-sky-600" size={24} />
+                    <div className="w-12 h-12 bg-gradient-to-br from-sky-100 to-violet-100 dark:from-sky-900 dark:to-violet-900 rounded-lg flex items-center justify-center">
+                      <Mail className="text-sky-600 dark:text-sky-400" size={24} />
                     </div>
                   </div>
                   <div className="ml-4">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-1">Email Us</h4>
-                    <p className="text-gray-600 mb-2">We're here to help</p>
-                    <a href={`mailto:${config.email}`} className="text-sky-600 hover:text-sky-700 font-medium">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Email Us</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-2">We're here to help</p>
+                    <a href={`mailto:${config.email}`} className="text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 font-medium">
                       {config.email}
                     </a>
                   </div>
@@ -184,17 +184,17 @@ export default function Contact() {
             {/* GitHub */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-violet-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-              <div className="relative bg-white rounded-xl shadow-lg p-6">
+              <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-gradient-to-br from-sky-100 to-violet-100 rounded-lg flex items-center justify-center">
-                      <Github className="text-sky-600" size={24} />
+                    <div className="w-12 h-12 bg-gradient-to-br from-sky-100 to-violet-100 dark:from-sky-900 dark:to-violet-900 rounded-lg flex items-center justify-center">
+                      <Github className="text-sky-600 dark:text-sky-400" size={24} />
                     </div>
                   </div>
                   <div className="ml-4">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-1">GitHub</h4>
-                    <p className="text-gray-600 mb-2">Check out our code</p>
-                    <a href={config.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sky-600 hover:text-sky-700 font-medium">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">GitHub</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-2">Check out our code</p>
+                    <a href={config.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 font-medium">
                       View Repository →
                     </a>
                   </div>
@@ -205,23 +205,23 @@ export default function Contact() {
             {/* Quick Info */}
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-violet-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-              <div className="relative bg-white rounded-xl shadow-lg p-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Quick Info</h4>
-                <div className="space-y-3 text-sm text-gray-600">
+              <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Info</h4>
+                <div className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                   <div className="flex items-start">
-                    <span className="text-sky-600 mr-2">•</span>
+                    <span className="text-sky-600 dark:text-sky-400 mr-2">•</span>
                     <span>We typically respond within 24 hours</span>
                   </div>
                   <div className="flex items-start">
-                    <span className="text-sky-600 mr-2">•</span>
+                    <span className="text-sky-600 dark:text-sky-400 mr-2">•</span>
                     <span>For bugs, please create an issue on GitHub</span>
                   </div>
                   <div className="flex items-start">
-                    <span className="text-sky-600 mr-2">•</span>
+                    <span className="text-sky-600 dark:text-sky-400 mr-2">•</span>
                     <span>Feature requests are always welcome</span>
                   </div>
                   <div className="flex items-start">
-                    <span className="text-sky-600 mr-2">•</span>
+                    <span className="text-sky-600 dark:text-sky-400 mr-2">•</span>
                     <span>Commercial support available upon request</span>
                   </div>
                 </div>

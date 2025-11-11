@@ -3,7 +3,7 @@ import { config } from '../config';
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <footer id="contact" className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 text-white transition-colors">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex items-center space-x-2">
@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-700 dark:border-gray-800 text-center text-sm text-gray-400 dark:text-gray-500">
           <p>&copy; 2025 Desklab. All rights reserved.</p>
         </div>
       </div>

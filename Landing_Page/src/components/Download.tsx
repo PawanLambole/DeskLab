@@ -4,13 +4,13 @@ import { config } from '../config';
 export default function Download() {
 
   return (
-    <section id="download" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-sky-50 via-violet-50 to-white">
+    <section id="download" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-sky-50 via-violet-50 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 transition-colors">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-sky-600 to-violet-600 bg-clip-text text-transparent">
             Download Desklab
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Get started in minutes with a simple installation
           </p>
         </div>
@@ -18,20 +18,20 @@ export default function Download() {
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-sky-600 to-violet-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
 
-          <div className="relative bg-white rounded-2xl shadow-xl p-8 sm:p-12">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 sm:p-12">
             <div className="flex flex-col sm:flex-row items-center gap-8">
               <div className="flex-shrink-0">
-                <div className="w-24 h-24 bg-gradient-to-br from-sky-100 to-violet-100 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-24 h-24 bg-gradient-to-br from-sky-100 to-violet-100 dark:from-sky-900 dark:to-violet-900 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <span className="text-5xl">⚡</span>
                 </div>
               </div>
 
               <div className="flex-1 text-center sm:text-left">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                   Desklab for Windows
                 </h3>
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-sm text-gray-600 mb-6">
-                  <span className="inline-flex items-center px-3 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6">
+                  <span className="inline-flex items-center px-3 py-1 bg-sky-50 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full font-medium">
                     Version {config.version}
                   </span>
                   <span className="flex items-center">
@@ -49,10 +49,10 @@ export default function Download() {
               </div>
             </div>
 
-            <div className="mt-8 pt-8 border-t border-gray-200">
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-sky-600 mr-2 mt-0.5 flex-shrink-0"
+                  className="w-5 h-5 text-sky-600 dark:text-sky-400 mr-2 mt-0.5 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -62,8 +62,8 @@ export default function Download() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <p className="text-sm text-gray-600">
-                  <strong className="font-semibold text-gray-900">System Requirements:</strong> Compatible with Windows 10 and Windows 11.
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  <strong className="font-semibold text-gray-900 dark:text-gray-100">System Requirements:</strong> Compatible with Windows 10 and Windows 11.
                   Requires 100 MB of free disk space and an active internet connection for updates.
                 </p>
               </div>
@@ -72,17 +72,17 @@ export default function Download() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-          <div className="p-6 bg-white rounded-xl shadow-sm">
-            <div className="text-3xl font-bold text-sky-600 mb-2">1M+</div>
-            <div className="text-gray-600">Downloads</div>
+          <div className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-2">1M+</div>
+            <div className="text-gray-600 dark:text-gray-300">Downloads</div>
           </div>
-          <div className="p-6 bg-white rounded-xl shadow-sm">
-            <div className="text-3xl font-bold text-violet-600 mb-2">4.8/5</div>
-            <div className="text-gray-600">User Rating</div>
+          <div className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="text-3xl font-bold text-violet-600 dark:text-violet-400 mb-2">4.8/5</div>
+            <div className="text-gray-600 dark:text-gray-300">User Rating</div>
           </div>
-          <div className="p-6 bg-white rounded-xl shadow-sm">
-            <div className="text-3xl font-bold text-sky-600 mb-2">24/7</div>
-            <div className="text-gray-600">Support</div>
+          <div className="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+            <div className="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-2">24/7</div>
+            <div className="text-gray-600 dark:text-gray-300">Support</div>
           </div>
         </div>
       </div>
